@@ -11,8 +11,8 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate {
-    
+class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate, NetworkServiceDelegate {
+   
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
     let APP_ID = "bf01c24469143b47cc42f0c971f583cc"
@@ -20,6 +20,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //TODO: Declare instance variables here
     let locationManager = CLLocationManager()
     let weatherDataModel = WeatherDataModel()
+    let networkService = NetworkService()
 
     //Pre-linked IBOutlets
     @IBOutlet weak var weatherIcon: UIImageView!
@@ -30,38 +31,13 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        networkService.delegate = self
         //TODO:Set up the location manager here.
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
-        
     }
-    
-    
-    
-    //MARK: - Networking
-    /***************************************************************/
-    
-    //Write the getWeatherData method here:
-    func getWeatherData(url: String, parameters: [String: String]) {
-        Alamofire.request(url, method: .get, parameters: parameters).responseJSON {
-            (response) in
-            if response.result.isSuccess {
-                guard let weatherJSON = response.data else {return}
-                self.updateWeatherData(data: weatherJSON)
-            } else {
-                self.cityLabel.text = "Connection Issues"
-            }
-        }
-    }
-    
-
-    
-    
-    
-    
     
     //MARK: - JSON Parsing
     /***************************************************************/
@@ -81,9 +57,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         }
     }
     
-
-    
-    
     
     //MARK: - UI Updates
     /***************************************************************/
@@ -97,11 +70,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
     }
     
-    
-    
-    
-    
-    
     //MARK: - Location Manager Delegate Methods
     /***************************************************************/
     
@@ -110,13 +78,13 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[locations.count - 1]
         if location.horizontalAccuracy > 0 {
-            locationManager.startUpdatingLocation()
+            locationManager.stopUpdatingLocation()
             
             let latitude = String(location.coordinate.latitude)
             let longitude = String(location.coordinate.longitude)
             
             let params : [String : String] = ["lat" : latitude, "lon" : longitude, "appid" : APP_ID]
-            getWeatherData(url: WEATHER_URL, parameters: params)
+            networkService.fetchWeatherData(url: WEATHER_URL, parameters: params)
         }
     }
     
@@ -125,11 +93,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
         cityLabel.text = "Location Unavaliable"
-        
     }
-    
-    
-
     
     //MARK: - Change City Delegate methods
     /***************************************************************/
@@ -139,11 +103,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func userEnteredANewCityName(city: String) {
         cityLabel.text = city
         let params : [String : String] = ["q" : city, "appid" : APP_ID]
-        getWeatherData(url: WEATHER_URL, parameters: params)
-        
+        networkService.fetchWeatherData(url: WEATHER_URL, parameters: params)
     }
-    
-
     
     //Write the PrepareForSegue Method here
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -153,9 +114,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         }
     }
     
-    
-    
-    
+    func returnNetworkRequest(result: Data) {
+           self.updateWeatherData(data: result)
+       }
 }
 
 
