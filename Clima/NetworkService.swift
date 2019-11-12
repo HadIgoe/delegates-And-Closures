@@ -9,13 +9,13 @@
 import Foundation
 import Alamofire
 
-protocol NetworkServiceDelegate {
+protocol NetworkServiceDelegate: AnyObject {
     func returnNetworkRequest(result: Data)
 }
 
 class NetworkService {
     
-    var delegate: NetworkServiceDelegate?
+    weak var delegate: NetworkServiceDelegate?
 
     func fetchWeatherData(url: String, parameters: [String: String]) {
          Alamofire.request(url, method: .get, parameters: parameters).responseJSON { response in

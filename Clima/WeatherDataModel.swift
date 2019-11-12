@@ -8,20 +8,20 @@
 
 import UIKit
 
-protocol WeatherDataDelegate {
-    func weatherDataUpdated()
-}
-
-
-struct CurrentLocalWeather: Codable {
-    var cod: Int
-    var main: Main
-    var name: String
-}
-
-struct Main: Codable {
-    var temp: Double
-}
+//protocol WeatherDataDelegate {
+//    func weatherDataUpdated()
+//}
+//
+//
+//struct CurrentLocalWeather: Codable {
+//    var cod: Int
+//    var main: Main
+//    var name: String
+//}
+//
+//struct Main: Codable {
+//    var temp: Double
+//}
 
 class WeatherDataModel {
 

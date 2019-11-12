@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		462DD804237B02D800737646 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462DD803237B02D800737646 /* NetworkService.swift */; };
+		462DD808237B277500737646 /* WeatherService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 462DD807237B277500737646 /* WeatherService.swift */; };
 		63E28AD11B99C32400FBF6E0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E28AD01B99C32400FBF6E0 /* AppDelegate.swift */; };
 		63E28AF11B99C35700FBF6E0 /* WeatherDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E28AF01B99C35700FBF6E0 /* WeatherDataModel.swift */; };
 		63E28AF61B99C36100FBF6E0 /* ChangeCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E28AF21B99C36100FBF6E0 /* ChangeCityViewController.swift */; };
@@ -21,6 +22,7 @@
 /* Begin PBXFileReference section */
 		1440FD7E4DFC40E46FD89931 /* Pods-Clima.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Clima.debug.xcconfig"; path = "Target Support Files/Pods-Clima/Pods-Clima.debug.xcconfig"; sourceTree = "<group>"; };
 		462DD803237B02D800737646 /* NetworkService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		462DD807237B277500737646 /* WeatherService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherService.swift; sourceTree = "<group>"; };
 		63E28ACB1B99C32400FBF6E0 /* Clima.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clima.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63E28ACF1B99C32400FBF6E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63E28AD01B99C32400FBF6E0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				63E28AF01B99C35700FBF6E0 /* WeatherDataModel.swift */,
+				462DD807237B277500737646 /* WeatherService.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				63E28AF11B99C35700FBF6E0 /* WeatherDataModel.swift in Sources */,
 				63E28AF91B99C36100FBF6E0 /* WeatherViewController.swift in Sources */,
 				63E28AD11B99C32400FBF6E0 /* AppDelegate.swift in Sources */,
+				462DD808237B277500737646 /* WeatherService.swift in Sources */,
 				63E28AF61B99C36100FBF6E0 /* ChangeCityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
