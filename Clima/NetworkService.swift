@@ -10,19 +10,16 @@ import Foundation
 import Alamofire
 
 
-protocol NetworkServiceDelegate {
-    func returnNetworkRequest(result: Data)
-}
 
 class NetworkService {
     
-    var delegate: NetworkServiceDelegate?
-
+    var returnNetworkRequest: ((_ result: Data)->())?
+    
     func fetchWeatherData(url: String, parameters: [String: String]) {
-         Alamofire.request(url, method: .get, parameters: parameters).responseJSON { response in
+        Alamofire.request(url, method: .get, parameters: parameters).responseJSON { response in
             if response.result.isSuccess{
                 guard let weatherJSON = response.data else {return}
-                self.delegate?.returnNetworkRequest(result: weatherJSON)
+                self.returnNetworkRequest?(weatherJSON)
             }
         }
     }

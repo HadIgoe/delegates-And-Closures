@@ -11,7 +11,7 @@ import CoreLocation
 import Alamofire
 import SwiftyJSON
 
-class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate, NetworkServiceDelegate {
+class WeatherViewController: UIViewController, CLLocationManagerDelegate, ChangeCityDelegate {
    
     //Constants
     let WEATHER_URL = "http://api.openweathermap.org/data/2.5/weather"
@@ -31,7 +31,10 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        networkService.delegate = self
+        networkService.returnNetworkRequest = { result in
+                    self.updateWeatherData(data: result)
+        }
+        
         //TODO:Set up the location manager here.
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
@@ -39,9 +42,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
         locationManager.startUpdatingLocation()
     }
     
-    //MARK: - JSON Parsing
-    /***************************************************************/
-   
     
     //Write the updateWeatherData method here:
     func updateWeatherData(data: Data) {
