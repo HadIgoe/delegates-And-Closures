@@ -115,8 +115,14 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     }
     
     func returnNetworkRequest(result: Data) {
-           self.updateWeatherData(data: result)
-       }
+       self.updateWeatherData(data: result)
+    }
 }
 
+extension WeatherViewController: WeatherDataDelegate {
 
+    func weatherDataUpdated() {
+        print("--- weatherDataUpdated")
+        updateUIWithWeatherData()
+    }
+}

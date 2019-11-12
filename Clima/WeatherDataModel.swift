@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol WeatherDataDelegate {
+    func weatherDataUpdated()
+}
+
+
 struct CurrentLocalWeather: Codable {
     var cod: Int
     var main: Main

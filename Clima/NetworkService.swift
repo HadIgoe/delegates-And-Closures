@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 protocol NetworkServiceDelegate {
     func returnNetworkRequest(result: Data)
 }
